@@ -39,3 +39,17 @@ LOAD DATA LOCAL INPATH 'tbl1.csv' INTO TABLE tbl1;
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
+INSERT OVERWRITE LOCAL DIRECTORY 'output'
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ','
+SELECT c1, c2, value
+from(
+    SELECT
+        c1 as num, k1 as key, v1 as value
+        FROM
+            tbl1
+        lateral view explode(c4) tbl1 as k1,v1
+    )T1
+inner join tbl0
+on tbl0.c2 = t1.key
+and tbl0.c1 = T1.num;

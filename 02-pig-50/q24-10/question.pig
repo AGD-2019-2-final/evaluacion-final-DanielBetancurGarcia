@@ -25,4 +25,6 @@ u = LOAD 'data.csv' USING PigStorage(',')
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
-
+data1 = FOREACH u GENERATE birthday, SUBSTRING(birthday,5,7) as mes;
+data2 = FOREACH data1 GENERATE mes;
+STORE data2 INTO 'output';

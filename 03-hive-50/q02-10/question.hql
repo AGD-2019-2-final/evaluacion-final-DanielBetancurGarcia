@@ -10,4 +10,12 @@
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
-
+DROP TABLE IF EXISTS docs;
+CREATE TABLE docs (letra STRING, fecha STRING, numero INTEGER)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t';
+LOAD DATA LOCAL INPATH "data.tsv" OVERWRITE INTO TABLE docs;
+INSERT OVERWRITE LOCAL DIRECTORY 'output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT letra as let,fecha,numero FROM docs
+ORDER BY let,numero, fecha ASC;

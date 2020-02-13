@@ -39,4 +39,14 @@ LOAD DATA LOCAL INPATH 'tbl1.csv' INTO TABLE tbl1;
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
-
+INSERT OVERWRITE LOCAL DIRECTORY 'output'
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ','
+select ANO, LETRAS, COUNT(LETRAS)
+FROM(
+    SELECT SUBSTR(c4,1,4) ANO, LETRAS 
+    FROM tbl0
+        LATERAL VIEW EXPLODE(c5) tbl0 as LETRAS
+    order by ANO, LETRAS
+) AS TB1
+group by ANO, LETRAS;

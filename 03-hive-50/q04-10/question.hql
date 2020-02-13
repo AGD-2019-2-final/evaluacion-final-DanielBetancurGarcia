@@ -39,4 +39,6 @@ LOAD DATA LOCAL INPATH 'tbl1.csv' INTO TABLE tbl1;
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
-
+INSERT OVERWRITE LOCAL DIRECTORY 'output'
+SELECT DISTINCT NOMBRE FROM tbl0
+LATERAL VIEW EXPLODE(c5) tbl0 as NOMBRE;

@@ -28,3 +28,6 @@ u = LOAD 'data.csv' USING PigStorage(',')
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
+data1 = FOREACH u GENERATE color;
+data2 = FILTER data1 BY color MATCHES '^b.*';
+STORE data2 INTO 'output';

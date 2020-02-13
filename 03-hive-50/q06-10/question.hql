@@ -39,5 +39,7 @@ LOAD DATA LOCAL INPATH 'tbl1.csv' INTO TABLE tbl1;
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
-
+INSERT OVERWRITE LOCAL DIRECTORY 'output'
+SELECT upper(concat_ws(':', c5)) as col1
+FROM tbl0;
 

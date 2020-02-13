@@ -28,4 +28,6 @@ u = LOAD 'data.csv' USING PigStorage(',')
 --
 -- >>> Escriba su respuesta a partir de este punto <<<
 --
-
+data1 = FOREACH u GENERATE firstname, color;
+data2 = FILTER data1 BY color MATCHES '.*[aeiou]$';
+STORE data2 INTO 'output' USING PigStorage (',');
